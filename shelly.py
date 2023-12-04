@@ -1,15 +1,18 @@
 import ShellyPy
-import csv
+import json
 from datetime import datetime
 import os
-
+import schedule
+import time
 
 class Shelly:
     
     
 
     def __init__(self, ipadress:str) -> None:
+        
         self.device = ShellyPy.Shelly(ipadress)
+        
 
 
 
@@ -24,45 +27,40 @@ class Shelly:
 
      
 
-    def read_csv(self, filename):
-        with open(filename, 'r+') as file:
-            reader = csv.reader(file)
-            rows = list(reader)
-            return rows
+    def read_json(self, filename):
+        try:
+            with open(filename, 'r') as file:
+                # Check if the file is empty
+                content = file.read()
+                if not content:
+                    return []
+
+                # Parse JSON data
+                data = json.loads(content)
+                return data
+        except FileNotFoundError:
+            return []
+        except json.JSONDecodeError as e:
+            # Handle JSON decoding errors
+            print(f"Error decoding JSON in '{filename}': {e}")
+            return []
+
+    def write_json(self, filename, data):
+        with open(filename, 'w') as file:
+            json.dump(data, file, indent=2)
 
 
 
-    def write_csv(self, filename, data):
-        with open(filename, 'w', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerows(data)
+    def update_and_write_json(self, filename, current_value):
+        json_data = self.read_json(filename)
 
-
-
-    def update_and_write_csv(self, filename, current_value):
-        # Read the existing CSV data
-        csv_data = self.read_csv(filename)
-
-        # Get the last value from the last row
-        if csv_data:
-            last_timestamp = csv_data[-1][0]
-            last_value = float(csv_data[-1][-1])
+        if json_data and len(json_data) > 0:
+            last_entry = json_data[-1]
+            last_timestamp = last_entry.get('time')
+            last_value = float(last_entry.get('total_watts'))
         else:
-            last_timestamp = None
+            last_timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             last_value = 0.0  # Assuming a default value if the file is empty
-
-        # Calculate the subtraction
-        subtraction_result = current_value - last_value
-
-         # Add the current timestamp and value to the CSV data
-        current_timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        new_row = [current_timestamp, current_value]
-        csv_data.append(new_row)
-
-        
-
-        # Write the updated CSV data back to the file
-        self.write_csv(filename, csv_data)
 
         if last_timestamp:
             last_time = datetime.strptime(last_timestamp, "%Y-%m-%d %H:%M:%S")
@@ -71,10 +69,39 @@ class Shelly:
         else:
             time_difference = 0.0
 
-        return subtraction_result, time_difference
+        # Calculate the subtraction
+        subtraction_result = current_value - last_value
+
+        # Add the current timestamp and value to the JSON data
+        current_timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        new_entry = {
+            'time': current_timestamp,
+            'total_watts': current_value,
+            'watts_during_time_interval': round(subtraction_result, 3),
+            'time_interval': round(time_difference)
+        }
+        json_data.append(new_entry)
+
+        # Write the updated JSON data back to the file
+        self.write_json(filename, json_data)
+        
+        return json_data
+
+
+    def run_hourly(self):
+        # Schedule the function to run every hour
+        def wrapper():
+            self.update_and_write_json("shellyReadings.json", self.energy())
+        
+        schedule.every().minute.at(":00").do(wrapper)
+        # Keep the program running
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
+            
+
 
 shellyIP = os.environ.get('ip', None)
-
-laskuri = Shelly(shellyIP)
-
-print(laskuri.update_and_write_csv("shellyReadings.csv", laskuri.energy()))
+laskuri = Shelly(shellyIP) #Put your shelly IP here
+laskuri.run_hourly()
+    
