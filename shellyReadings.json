@@ -1,0 +1,248 @@
+[
+  {
+    "time": "2023-12-07 12:27:00",
+    "total_watts": 24007.586,
+    "watts_during_time_interval": 24007.586,
+    "time_interval": 0
+  },
+  {
+    "time": "2023-12-07 12:40:00",
+    "total_watts": 24090.926,
+    "watts_during_time_interval": 1.582,
+    "time_interval": 61
+  },
+  {
+    "time": "2023-12-07 13:00:00",
+    "total_watts": 24205.445,
+    "watts_during_time_interval": 114.519,
+    "time_interval": 1200
+  },
+  {
+    "time": "2023-12-07 14:00:00",
+    "total_watts": 24554.951,
+    "watts_during_time_interval": 349.506,
+    "time_interval": 3601
+  },
+  {
+    "time": "2023-12-07 15:00:00",
+    "total_watts": 24901.057,
+    "watts_during_time_interval": 346.106,
+    "time_interval": 3600
+  },
+  {
+    "time": "2023-12-07 16:14:06",
+    "total_watts": 25342.295,
+    "watts_during_time_interval": 441.238,
+    "time_interval": 4446
+  },
+  {
+    "time": "2023-12-07 17:06:31",
+    "total_watts": 25671.959,
+    "watts_during_time_interval": 329.664,
+    "time_interval": 3145
+  },
+  {
+    "time": "2023-12-07 18:00:36",
+    "total_watts": 26012.006,
+    "watts_during_time_interval": 340.047,
+    "time_interval": 3245
+  },
+  {
+    "time": "2023-12-07 19:00:00",
+    "total_watts": 26372.6,
+    "watts_during_time_interval": 360.594,
+    "time_interval": 3565
+  },
+  {
+    "time": "2023-12-07 20:00:35",
+    "total_watts": 26743.805,
+    "watts_during_time_interval": 371.205,
+    "time_interval": 3636
+  },
+  {
+    "time": "2023-12-07 21:05:56",
+    "total_watts": 27131.031,
+    "watts_during_time_interval": 387.226,
+    "time_interval": 3922
+  },
+  {
+    "time": "2023-12-07 22:02:13",
+    "total_watts": 27472.121,
+    "watts_during_time_interval": 341.09,
+    "time_interval": 3377
+  },
+  {
+    "time": "2023-12-07 23:08:10",
+    "total_watts": 27867.012,
+    "watts_during_time_interval": 394.891,
+    "time_interval": 3957
+  },
+  {
+    "time": "2023-12-08 00:08:28",
+    "total_watts": 28242.418,
+    "watts_during_time_interval": 375.406,
+    "time_interval": 3619
+  },
+  {
+    "time": "2023-12-08 01:10:48",
+    "total_watts": 28610.732,
+    "watts_during_time_interval": 368.314,
+    "time_interval": 3740
+  },
+  {
+    "time": "2023-12-08 02:00:01",
+    "total_watts": 28907.064,
+    "watts_during_time_interval": 296.332,
+    "time_interval": 2954
+  },
+  {
+    "time": "2023-12-08 03:11:42",
+    "total_watts": 29346.598,
+    "watts_during_time_interval": 439.534,
+    "time_interval": 4302
+  },
+  {
+    "time": "2023-12-08 04:00:23",
+    "total_watts": 29640.334,
+    "watts_during_time_interval": 293.736,
+    "time_interval": 2922
+  },
+  {
+    "time": "2023-12-08 05:00:42",
+    "total_watts": 30008.838,
+    "watts_during_time_interval": 368.504,
+    "time_interval": 3620
+  },
+  {
+    "time": "2023-12-08 06:00:37",
+    "total_watts": 30380.672,
+    "watts_during_time_interval": 371.834,
+    "time_interval": 3596
+  },
+  {
+    "time": "2023-12-08 07:02:45",
+    "total_watts": 30811.494,
+    "watts_during_time_interval": 430.822,
+    "time_interval": 3728
+  },
+  {
+    "time": "2023-12-08 08:04:07",
+    "total_watts": 31206.311,
+    "watts_during_time_interval": 394.817,
+    "time_interval": 3682
+  },
+  {
+    "time": "2023-12-08 09:04:37",
+    "total_watts": 31594.951,
+    "watts_during_time_interval": 388.64,
+    "time_interval": 3631
+  },
+  {
+    "time": "2023-12-08 10:05:40",
+    "total_watts": 32017.562,
+    "watts_during_time_interval": 422.611,
+    "time_interval": 3664
+  },
+  {
+    "time": "2023-12-08 11:07:14",
+    "total_watts": 32443.812,
+    "watts_during_time_interval": 426.25,
+    "time_interval": 3695
+  },
+  {
+    "time": "2023-12-08 12:00:00",
+    "total_watts": 32804.574,
+    "watts_during_time_interval": 360.762,
+    "time_interval": 3166
+  },
+  {
+    "time": "2023-12-08 13:08:46",
+    "total_watts": 33263.211,
+    "watts_during_time_interval": 458.637,
+    "time_interval": 4127
+  },
+  {
+    "time": "2023-12-08 14:05:15",
+    "total_watts": 33589.219,
+    "watts_during_time_interval": 326.008,
+    "time_interval": 3390
+  },
+  {
+    "time": "2023-12-08 15:09:10",
+    "total_watts": 33967.961,
+    "watts_during_time_interval": 378.742,
+    "time_interval": 3835
+  },
+  {
+    "time": "2023-12-08 16:07:41",
+    "total_watts": 34361.969,
+    "watts_during_time_interval": 394.008,
+    "time_interval": 3511
+  },
+  {
+    "time": "2023-12-08 17:06:04",
+    "total_watts": 34767.359,
+    "watts_during_time_interval": 405.39,
+    "time_interval": 3503
+  },
+  {
+    "time": "2023-12-08 18:00:01",
+    "total_watts": 35139.676,
+    "watts_during_time_interval": 372.317,
+    "time_interval": 3237
+  },
+  {
+    "time": "2023-12-08 19:05:50",
+    "total_watts": 35593.836,
+    "watts_during_time_interval": 454.16,
+    "time_interval": 3949
+  },
+  {
+    "time": "2023-12-08 20:08:04",
+    "total_watts": 36025.336,
+    "watts_during_time_interval": 431.5,
+    "time_interval": 3735
+  },
+  {
+    "time": "2023-12-08 21:00:00",
+    "total_watts": 36373.738,
+    "watts_during_time_interval": 348.402,
+    "time_interval": 3117
+  },
+  {
+    "time": "2023-12-08 22:05:29",
+    "total_watts": 36812.062,
+    "watts_during_time_interval": 438.324,
+    "time_interval": 3930
+  },
+  {
+    "time": "2023-12-08 23:10:15",
+    "total_watts": 37240.695,
+    "watts_during_time_interval": 428.633,
+    "time_interval": 3886
+  },
+  {
+    "time": "2023-12-09 00:06:27",
+    "total_watts": 37626.719,
+    "watts_during_time_interval": 386.024,
+    "time_interval": 3372
+  },
+  {
+    "time": "2023-12-09 01:09:36",
+    "total_watts": 38063.289,
+    "watts_during_time_interval": 436.57,
+    "time_interval": 3790
+  },
+  {
+    "time": "2023-12-09 02:01:55",
+    "total_watts": 38438.957,
+    "watts_during_time_interval": 375.668,
+    "time_interval": 3139
+  },
+  {
+    "time": "2023-12-09 03:08:24",
+    "total_watts": 38918.227,
+    "watts_during_time_interval": 479.27,
+    "time_interval": 3990
+  }
+]

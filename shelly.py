@@ -43,7 +43,7 @@ class Shelly:
         except json.JSONDecodeError as e:
             # Handle JSON decoding errors
             print(f"Error decoding JSON in '{filename}': {e}")
-            return []
+            return 
 
     def write_json(self, filename, data):
         with open(filename, 'w') as file:
@@ -93,7 +93,7 @@ class Shelly:
         def wrapper():
             self.update_and_write_json("shellyReadings.json", self.energy())
         
-        schedule.every().minute.at(":00").do(wrapper)
+        schedule.every().hour.at(":00").do(wrapper)
         # Keep the program running
         while True:
             schedule.run_pending()

@@ -1,12 +1,13 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 import json
-import subprocess
+
 
 
 app = Flask(__name__)
+CORS(app)
 
-
-JSON_FILE = "shellyReadings.json"  
+JSON_FILE = "shellyReadings.json"
 
 def read_json_file():
     with open(JSON_FILE, 'r') as file:
@@ -22,4 +23,4 @@ def get_data():
     
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=3000)
