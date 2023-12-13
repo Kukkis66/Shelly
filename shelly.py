@@ -81,7 +81,7 @@ class Shelly:
             'time_interval': round(time_difference)
         }
         json_data.append(new_entry)
-
+        print(new_entry)
         # Write the updated JSON data back to the file
         self.write_json(filename, json_data)
         
