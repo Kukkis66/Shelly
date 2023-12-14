@@ -1,3 +1,23 @@
 [
-  
+  {
+    "time": "2023-12-14 18:28:01",
+    "total_watts": 1980.657,
+    "watts_during_time_interval": 1980.657,
+    "time_interval": 1,
+    "price_from_last_hour": 1.98
+  },
+  {
+    "time": "2023-12-14 18:29:01",
+    "total_watts": 1984.849,
+    "watts_during_time_interval": 4.192,
+    "time_interval": 61,
+    "price_from_last_hour": 0.0
+  },
+  {
+    "time": "2023-12-14 18:32:02",
+    "total_watts": 2026.449,
+    "watts_during_time_interval": 41.6,
+    "time_interval": 181,
+    "price_during_time_interval": 0.01
+  }
 ]

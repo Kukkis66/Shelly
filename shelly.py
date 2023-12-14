@@ -4,7 +4,7 @@ from datetime import datetime
 import os
 import schedule
 import time
-
+import requests
 class Shelly:
     
     
@@ -69,8 +69,15 @@ class Shelly:
         else:
             time_difference = 0.0
 
+
         # Calculate the subtraction
         subtraction_result = current_value - last_value
+
+        # Calculate the electricity cost
+        price_data = self.read_json("lastHour.json")
+        
+        price = price_data.get('PriceWithTax')
+        cost = (subtraction_result/1000) * price
 
         # Add the current timestamp and value to the JSON data
         current_timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -78,7 +85,8 @@ class Shelly:
             'time': current_timestamp,
             'total_watts': current_value,
             'watts_during_time_interval': round(subtraction_result, 3),
-            'time_interval': round(time_difference)
+            'time_interval': round(time_difference),
+            'price_during_time_interval': round(cost, 2)
         }
         json_data.append(new_entry)
         print(new_entry)
@@ -87,13 +95,20 @@ class Shelly:
         
         return json_data
 
+    def get_price(self):
+        response = requests.get("https://api.spot-hinta.fi/JustNow")
+        print(response)
+        response_json = response.json()
+        self.write_json("lastHour.json", response_json)
 
     def run_hourly(self):
         # Schedule the function to run every hour
         def wrapper():
+            self.get_price()
+            time.sleep(1)
             self.update_and_write_json("shellyReadings.json", self.energy())
         
-        schedule.every().hour.at(":00").do(wrapper)
+        schedule.every().minute.at(":00").do(wrapper)
         # Keep the program running
         while True:
             schedule.run_pending()
@@ -102,6 +117,6 @@ class Shelly:
 
 
 shellyIP = os.environ.get('ip', None)
-laskuri = Shelly(shellyIP) #Put your shelly IP here
+laskuri = Shelly(shellyIP) #Put your shelly ip here or do .env file witch includes export ip="your.shelly.ip.here" and write in your terminal source .env
 laskuri.run_hourly()
     
