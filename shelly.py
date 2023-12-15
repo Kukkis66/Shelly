@@ -9,10 +9,10 @@ class Shelly:
     
     
 
-    def __init__(self, ipadress:str) -> None:
+    def __init__(self, ipadress:str, name:str) -> None:
         
         self.device = ShellyPy.Shelly(ipadress)
-        
+        self.name = name
 
 
 
@@ -74,11 +74,13 @@ class Shelly:
         subtraction_result = current_value - last_value
 
         # Calculate the electricity cost
-        price_data = self.read_json("lastHour.json")
         
-        price = price_data.get('PriceWithTax')
-        cost = (subtraction_result/1000) * price
-
+        price_data = self.read_json("lastHour.json")
+        if price_data:
+            price = price_data.get('PriceWithTax')
+            cost = (subtraction_result/1000) * price
+        else:
+            cost = 0.0
         # Add the current timestamp and value to the JSON data
         current_timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         new_entry = {
@@ -90,23 +92,33 @@ class Shelly:
         }
         json_data.append(new_entry)
         print(new_entry)
+        
         # Write the updated JSON data back to the file
         self.write_json(filename, json_data)
         
         return json_data
 
     def get_price(self):
-        response = requests.get("https://api.spot-hinta.fi/JustNow")
-        print(response)
-        response_json = response.json()
-        self.write_json("lastHour.json", response_json)
+        try:
+            response = requests.get("https://api.spot-hinta.fi/JustNow")
+            if response.status_code == 200:
+                response_json = response.json()
+                self.write_json("lastHour.json", response_json)
+            else:
+                print(f"Error: Request failed with status code {response.status_code}")
+        except requests.RequestException as e:
+            # Handle other request-related exceptions
+            print(f"Error: {e}")
+            
 
     def run_hourly(self):
         # Schedule the function to run every hour
         def wrapper():
-            self.get_price()
+           
+            
+            self.update_and_write_json(self.name+".json", self.energy())
             time.sleep(1)
-            self.update_and_write_json("shellyReadings.json", self.energy())
+            self.get_price()
         
         schedule.every().minute.at(":00").do(wrapper)
         # Keep the program running
@@ -117,6 +129,6 @@ class Shelly:
 
 
 shellyIP = os.environ.get('ip', None)
-laskuri = Shelly(shellyIP) #Put your shelly ip here or do .env file witch includes export ip="your.shelly.ip.here" and write in your terminal source .env
+laskuri = Shelly(shellyIP, "shelly") #Put your shelly ip here and name of your device
 laskuri.run_hourly()
     
