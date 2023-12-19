@@ -8,16 +8,16 @@ import requests
 
 
 
-
-
 class Shelly:
     
     
 
-    def __init__(self, ipadress:str, name:str) -> None:
+    def __init__(self, name:str, ipadress:str) -> None:
         
         self.device = ShellyPy.Shelly(ipadress)
         self.name = name
+        
+        
 
 
 
@@ -48,7 +48,10 @@ class Shelly:
         except json.JSONDecodeError as e:
             # Handle JSON decoding errors
             print(f"Error decoding JSON in '{filename}': {e}")
-            return 
+            return
+        
+   
+
 
     def write_json(self, filename, data):
         with open(filename, 'w') as file:
@@ -76,6 +79,8 @@ class Shelly:
         else:
             time_difference = 0.0
 
+        
+            
 
         # Calculate the subtraction
         subtraction_result = current_value - last_value
@@ -89,11 +94,16 @@ class Shelly:
         else:
             cost = 0.0
 
+        if time_difference > 3605:
+            cost = 0.0
         #calculate total cost
         
         total_cost =+ last_cost + cost
+
+
         # Add the current timestamp and value to the JSON data
         current_timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
         new_entry = {
             'time': current_timestamp,
             'total_watts': current_value,
@@ -103,7 +113,7 @@ class Shelly:
             'total_cost': round(total_cost, 3)
         }
         json_data.append(new_entry)
-        print(new_entry)
+        print(self.name, new_entry)
         
         # Write the updated JSON data back to the file
         self.write_json(filename, json_data)
@@ -125,22 +135,50 @@ class Shelly:
 
     def run_hourly(self):
         # Schedule the function to run every hour
-        def wrapper():
+        def update_wrapper():
            
-            
             self.update_and_write_json(self.name+".json", self.energy())
-            time.sleep(1)
-            self.get_price()
         
-        schedule.every().hour.at(":00").do(wrapper)
-        # Keep the program running
-        while True:
-            schedule.run_pending()
-            time.sleep(1)
+        def price_wrapper():
+
+            self.get_price()
+            
+        
+        schedule.every().minute.at(":00").do(update_wrapper)
+
+        schedule.every().minute.at(":10").do(price_wrapper)
+        
+ 
             
 
 
-shellyIP = os.environ.get('ip', None)
-laskuri = Shelly(shellyIP, "shelly") #Put your shelly ip here and name of your device
-laskuri.run_hourly()
+if __name__ == "__main__":
+    settings_file_path = os.path.join(os.path.dirname(__file__), 'settings.json')
+
+    with open(settings_file_path, 'r') as file:
+        content = file.read()
+        data = json.loads(content)
+
+    
+    for shelly_data in data.get('shellies', []):
+        name = shelly_data.get('name')
+        ip_address = shelly_data.get('ip')
+        print(f"Creating instance for {name} with IP {ip_address}")
+        sheldon = Shelly(name, ip_address)
+        sheldon.run_hourly()
+        
+
+
+
+
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
+
+    
+
+
+
+
     
