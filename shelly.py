@@ -93,6 +93,7 @@ class Shelly:
             cost = (subtraction_result/1000) * price
         else:
             cost = 0.0
+            price = 0.0
 
         if time_difference > 3605:
             cost = 0.0
