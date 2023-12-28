@@ -146,9 +146,9 @@ class Shelly:
             self.get_price()
             
         
-        schedule.every().minute.at(":00").do(update_wrapper)
+        schedule.every().hour.at(":00").do(update_wrapper)
 
-        schedule.every().minute.at(":10").do(price_wrapper)
+        schedule.every().hour.at(":10").do(price_wrapper)
         
  
             
