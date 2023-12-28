@@ -118,7 +118,7 @@ def delete_device(device_id):
             del current_settings['shellies'][device_index]
 
             # Update the settings file
-            write_json_file(current_settings)
+            write_json_file("settings", current_settings)
 
             return jsonify({"message": "Device deleted successfully"})
 
