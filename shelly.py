@@ -112,7 +112,7 @@ class Shelly:
             'time_interval': round(time_difference),
             'price_during_time_interval': round(cost, 3),
             'total_cost': round(total_cost, 3),
-            'current_price': round(price)
+            'current_price': price
         }
         json_data.append(new_entry)
         print(self.name, new_entry)
