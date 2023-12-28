@@ -46,7 +46,9 @@ def get_device_data(device_id):
 
         # If the device is found, return its data
         if device:
-            return jsonify(device)
+            name = device.get('name')
+            data = read_json_file(name)
+            return jsonify(data)
 
         # If the device is not found, return an error
         return jsonify({"error": "Device not found"}), 404
