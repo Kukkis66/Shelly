@@ -18,8 +18,9 @@ def read_json_file(filename):
         data = json.load(file)
     return data
 
-def write_json_file(data):
-    with open('settings.json', 'w') as file:
+def write_json_file(filename, data):
+    file_path = os.path.join(os.path.dirname(__file__), f'{filename}.json')
+    with open(file_path, 'w') as file:
         json.dump(data, file, indent=2)
 
 def generate_unique_id(settings):
@@ -31,7 +32,7 @@ def generate_unique_id(settings):
     else:
         return 1
 
-@app.route('/api/settings/device/<device_id>', methods=['GET'])
+@app.route('/api/device/<device_id>', methods=['GET'])
 def get_device_data(device_id):
     try:
         # Load the current settings
@@ -91,7 +92,7 @@ def update_settings():
 
                     current_settings['shellies'].append(new_device)
 
-            write_json_file(current_settings)
+            write_json_file("settings", current_settings)
             return jsonify({"message": "Settings updated successfully"})
         else:
             return jsonify({"error": "Invalid payload structure"}), 400
