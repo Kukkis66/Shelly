@@ -67,6 +67,7 @@ class Shelly:
             last_timestamp = last_entry.get('time')
             last_value = float(last_entry.get('total_watts'))
             last_cost = float(last_entry.get('total_cost'))
+        
         else:
             last_timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             last_value = current_value  # Assuming a default value if the file is empty
@@ -83,7 +84,10 @@ class Shelly:
             
 
         # Calculate the subtraction
-        subtraction_result = current_value - last_value
+        if last_value > current_value:
+            subtraction_result = current_value - last_value
+        else:
+            subtraction_result = 0.0
 
         # Calculate the electricity cost
         
@@ -97,7 +101,7 @@ class Shelly:
 
         if time_difference > 3605:
             cost = 0.0
-        #calculate total cost
+        
         
         total_cost =+ last_cost + cost
 
